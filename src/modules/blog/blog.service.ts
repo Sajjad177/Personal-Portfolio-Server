@@ -6,6 +6,28 @@ const CreateBlogInDB = async (payload: TBlog) => {
   return result;
 };
 
+const getAllBlogsFromDB = async () => {
+  const result = await Blog.find({});
+  return result;
+};
+
+const updateBlogInDB = async (id: string, payload: TBlog) => {
+  const result = await Blog.findOneAndUpdate({ _id: id }, payload, {
+    new: true,
+    runValidators: true,
+  });
+
+  return result;
+};
+
+const deleteBlogInDB = async (id: string) => {
+  const result = await Blog.findOneAndDelete({ _id: id });
+  return result;
+};
+
 export const blogService = {
   CreateBlogInDB,
+  getAllBlogsFromDB,
+  updateBlogInDB,
+  deleteBlogInDB,
 };
