@@ -2,8 +2,23 @@ import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { projectService } from "./project.service";
 
-const CreateProject = catchAsync(async (req, res) => {
-  const result = await projectService.CreateProjectInDB(req.body);
+const CreateProject = catchAsync(async (req, res): Promise<any> => {
+  let projectData;
+  try {
+    if (!req.body.data) {
+      return res
+        .status(400)
+        .json({ success: false, message: "No data provided" });
+    }
+    projectData = JSON.parse(req.body.data);
+  } catch (error) {
+    return res.status(400).json({ success: false, message: "Invalid data" });
+  }
+
+  const result = await projectService.CreateProjectInDB({
+    ...projectData,
+    image: req.file?.path,
+  });
 
   sendResponse(res, {
     statusCode: 200,
@@ -24,9 +39,27 @@ const getAllProjects = catchAsync(async (req, res) => {
   });
 });
 
-const updateProject = catchAsync(async (req, res) => {
+const updateProject = catchAsync(async (req, res): Promise<any> => {
   const { id } = req.params;
-  const result = await projectService.updateProjectInDB(id, req.body);
+
+  let projectData;
+  try {
+    if (!req.body.data) {
+      return res
+        .status(400)
+        .json({ success: false, message: "No data provided" });
+    }
+    projectData = JSON.parse(req.body.data);
+  } catch (error) {
+    return res.status(400).json({ success: false, message: "Invalid data" });
+  }
+
+  const imagePath = req.file ? req.file.path : projectData.image;
+
+  const result = await projectService.updateProjectInDB(id, {
+    ...projectData,
+    image: imagePath,
+  });
 
   sendResponse(res, {
     statusCode: 200,
@@ -39,7 +72,7 @@ const updateProject = catchAsync(async (req, res) => {
 const deleteProject = catchAsync(async (req, res) => {
   const { id } = req.params;
   await projectService.deleteProjectInDB(id);
-  
+
   sendResponse(res, {
     statusCode: 200,
     success: true,

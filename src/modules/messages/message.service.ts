@@ -6,7 +6,6 @@ const createMessageInDB = async (payload: TMessage) => {
   return result;
 };
 
-
 const getAllMessagesFromDB = async () => {
   const result = await Message.find({});
   return result;
