@@ -7,6 +7,7 @@ const route = Router();
 route.post("/create", multerUpload.single("image"), blogController.createBlog);
 
 route.get("/", blogController.getAllBlogs);
+route.get("/:id", blogController.getSingleBlog);
 
 route.put(
   "/update/:id",

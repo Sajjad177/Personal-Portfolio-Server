@@ -11,6 +11,11 @@ const getAllProjectsFromDB = async () => {
   return result;
 };
 
+const getSingleProjectFromDB = async (id: string) => {
+  const result = await Project.findOne({ _id: id });
+  return result;
+};
+
 const updateProjectInDB = async (id: string, payload: TProject) => {
   const result = await Project.findOneAndUpdate({ _id: id }, payload, {
     new: true,
@@ -28,6 +33,7 @@ const deleteProjectInDB = async (id: string) => {
 export const projectService = {
   CreateProjectInDB,
   getAllProjectsFromDB,
+  getSingleProjectFromDB,
   updateProjectInDB,
   deleteProjectInDB,
 };

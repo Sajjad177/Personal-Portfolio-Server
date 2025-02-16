@@ -5,7 +5,6 @@ import config from "../config";
 import { TUserRole } from "../modules/user/user.interface";
 
 const auth = (...requiredRoles: TUserRole[]) => {
-  console.log("from auth -> ", requiredRoles);
   return catchAsync(
     async (req: Request, res: Response, next: NextFunction): Promise<any> => {
       const token = req.headers.authorization;

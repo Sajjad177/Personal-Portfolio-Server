@@ -11,6 +11,14 @@ const getAllBlogsFromDB = async () => {
   return result;
 };
 
+
+const getSingleBlogFromDB = async (id: string) => {
+  const result = await Blog.findOne({ _id: id });
+  return result
+}
+
+
+
 const updateBlogInDB = async (id: string, payload: TBlog) => {
   const result = await Blog.findOneAndUpdate({ _id: id }, payload, {
     new: true,
@@ -28,6 +36,7 @@ const deleteBlogInDB = async (id: string) => {
 export const blogService = {
   CreateBlogInDB,
   getAllBlogsFromDB,
+  getSingleBlogFromDB,
   updateBlogInDB,
   deleteBlogInDB,
 };
