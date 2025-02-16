@@ -2,7 +2,7 @@
 
 ### 🌐 [Website Live Demo](https://portfolio-frontend-eight-zeta.vercel.app)  
 
-## 📜 Project Overview : This backend build with NodeJs, ExpressJs, MongoDB, Mongoose,JWT with data handling.
+## 📜 Project Overview : This backend user can see author project, blogs. User can read blogs and see author skills.User also send message to author.
 
 ## 🛠 Technology Used : 
 **TypeScript**, **Mongoose**, **MongoDB**, **Cors**, **dotenv**, **jsonwebtoken**, **eslint**
